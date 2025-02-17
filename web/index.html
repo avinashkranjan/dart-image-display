@@ -22,20 +22,13 @@
 </head>
 
 <body>
-  <script src="./flutter.js" async></script>
+  <script src="./flutter.js" defer></script>
+
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('flutter-first-frame', function() {
-        navigator.serviceWorker.register('flutter_service_worker.js?v=1417913520');
-        navigator.serviceWorker.register('flutter_service_worker.js');
-      });
-    }
     window.addEventListener('load', function(ev) {
-      entrypointUrl: "/main.dart.js",
-      _flutter.loader.loadEntrypoint({
-        // serviceWorker: {
-        //   serviceWorkerVersion: serviceWorkerVersion,
-        // },
+
+      var flutter = _flutter || {};
+      flutter.loader.loadEntrypoint({
         onEntrypointLoaded: function(engineInitializer) {
           engineInitializer.initializeEngine().then(function(appRunner) {
             appRunner.runApp();
@@ -43,6 +36,12 @@
         }
       });
     });
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('flutter-first-frame', function() {
+        navigator.serviceWorker.register('flutter_service_worker.js?v=1417913520');
+      });
+    }
   </script>
 
 </body>
