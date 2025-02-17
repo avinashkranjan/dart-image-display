@@ -3,7 +3,7 @@
 
 <head>
 
-  <base href="/dart-image-display/">
+  <base href="/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
@@ -22,17 +22,15 @@
 </head>
 
 <body>
-  <script src="./flutter.js" async></script>
+  <!-- Load the Flutter web SDK with correct path -->
+  <script src="./flutter.js" defer></script>
+
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('flutter-first-frame', function() {
-        navigator.serviceWorker.register('flutter_service_worker.js?v=1417913520');
-        navigator.serviceWorker.register('flutter_service_worker.js?v=3109862649');
-      });
-    }
+    // Wait for Flutter to be ready
     window.addEventListener('load', function(ev) {
-      entrypointUrl: "/main.dart.js",
-      _flutter.loader.loadEntrypoint({
+      // Initialize _flutter only after flutter.js is loaded
+      var flutter = _flutter || {};
+      flutter.loader.loadEntrypoint({
         // serviceWorker: {
         //   serviceWorkerVersion: serviceWorkerVersion,
         // },
@@ -43,6 +41,12 @@
         }
       });
     });
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('flutter-first-frame', function() {
+        navigator.serviceWorker.register('flutter_service_worker.js?v=1417913520');
+      });
+    }
   </script>
 
 </body>
