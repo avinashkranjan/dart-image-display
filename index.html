@@ -19,6 +19,22 @@
 
   <title>Dart URL Image</title>
   <link rel="manifest" href="manifest.json">
+  <script>
+    window.addEventListener('load', function(ev) {
+      _flutter.loader.loadEntrypoint({
+        entrypointUrl: "/main.dart.js",
+        serviceWorker: {
+          serviceWorkerVersion: serviceWorkerVersion,
+          serviceWorkerUrl: "/flutter_service_worker.js?v=",
+        },
+        onEntrypointLoaded: function(engineInitializer) {
+          engineInitializer.initializeEngine().then(function(appRunner) {
+            appRunner.runApp();
+          });
+        }
+      });
+    });
+  </script>
 </head>
 
 <body>
